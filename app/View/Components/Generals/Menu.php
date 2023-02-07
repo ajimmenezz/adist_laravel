@@ -1,0 +1,50 @@
+<?php
+
+namespace App\View\Components\Generals;
+
+use Illuminate\View\Component;
+
+class Menu extends Component
+{
+    /**
+     * Create a new component instance.
+     *
+     * @return void
+     */
+    public $menu;
+    public function __construct()
+    {
+        $path = $this->getUrl();
+        $this->menu = [
+            [
+                'label' => 'Logística',
+                'icon' => 'bi bi-truck',
+                'active' => (isset($path[1]) && $path[1] == 'Logistica') ? true : false,
+                'children' => [
+                    [
+                        'label' => 'Recolección',
+                        'url' => route('logistic.pickup.index'),
+                        'active' => (isset($path[2]) && $path[2] == 'Recoleccion') ? true : false
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|\Closure|string
+     */
+    public function render()
+    {
+        return view('components.generals.menu', ['menu' => $this->menu]);
+    }
+
+    public function getUrl()
+    {
+        $current = url()->current();
+        $path = parse_url($current, PHP_URL_PATH);
+        return explode("/", $path);
+    }
+}
