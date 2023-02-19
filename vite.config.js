@@ -17,6 +17,8 @@ export default defineConfig({
 
                 'resources/js/modules/logistic/pickups.js',
                 'resources/js/modules/logistic/pickup.js',
+
+                'resources/js/modules/support/branch_inventories/index.js'
             ],
             refresh: true,
         }),

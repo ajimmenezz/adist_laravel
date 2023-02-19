@@ -39,4 +39,26 @@ class Users extends Model
 
         return $base;
     }
+
+    public static function subordinatesIds(int $id)
+    {
+        $ids = [];
+        $boss = [$id];
+        do {
+            $subordinates = DB::table('cat_v3_usuarios as cu')
+                ->whereIn('cu.IdJefe', $boss)
+                ->whereNotIn('cu.Id', $ids)
+                ->select('cu.Id')
+                ->get();
+            $boss = [];
+            if (!empty($subordinates)) {
+                foreach ($subordinates as $subordinate) {
+                    array_push($ids, $subordinate->Id);
+                    array_push($boss, $subordinate->Id);
+                }
+            }
+        } while (!empty($boss));
+
+        return $ids;
+    }
 }

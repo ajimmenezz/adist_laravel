@@ -47,6 +47,21 @@ class Controller extends BaseController
                     ]
                 ];
                 break;
+            case 'support.branch_inventory.index':
+                return [
+                    'title' => $data['title'],
+                    'subtitle' => 'Equipos y accesorios por sucursal',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Soporte',
+                        ],
+                        [
+                            'label' => 'Censos',
+                            'url' => route('support.branch_inventory.index')
+                        ]
+                    ]
+                ];
+                break;
             default:
                 return [
                     'title' => '',

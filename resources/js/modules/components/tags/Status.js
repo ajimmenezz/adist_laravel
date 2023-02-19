@@ -11,9 +11,12 @@ class Status_Tags {
             case 3:
                 html = `<span class="badge rounded-pill text-bg-danger">Problema</span>`;
                 break;
+            case 10:
+                html = `<span class="badge rounded-pill text-bg-dark">Rechazado</span>`;
+                break;
         }
         return html;
     }
 }
 
-export default Status_Tags;
+export default Status_Tags; 

@@ -27,6 +27,18 @@ class Menu extends Component
                         'active' => (isset($path[2]) && $path[2] == 'Recoleccion') ? true : false
                     ]
                 ]
+            ],
+            [
+                'label' => 'Soporte en Sitio',
+                'icon' => 'bi bi-tools',
+                'active' => (isset($path[1]) && $path[1] == 'Soporte-en-sitio') ? true : false,
+                'children' => [
+                    [
+                        'label' => 'Censos',
+                        'url' => route('support.branch_inventory.index'),
+                        'active' => (isset($path[2]) && $path[2] == 'Censos') ? true : false
+                    ]
+                ]
             ]
         ];
     }

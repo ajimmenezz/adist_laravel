@@ -5,6 +5,7 @@ namespace App\Models\Old;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Old\Users;
 
 class Censos extends Model
 {
@@ -60,5 +61,22 @@ class Censos extends Model
             ->orderBy('cma.Nombre', 'asc')
             ->orderBy('cme.Nombre', 'asc')
             ->orderBy('t_censos.Serie', 'asc');
+    }
+
+    public static function getPendings($userId)
+    {
+        return DB::table('t_servicios_ticket as tst')
+            ->join('cat_v3_sucursales as cs', 'cs.Id', '=', 'tst.IdSucursal')
+            ->whereIn('tst.IdEstatus', [1, 2, 3, 10])
+            ->where('tst.IdTipoServicio', 11)
+            ->whereNotIn('cs.IdUnidadNegocio', [12, 14])
+            ->whereIn('tst.Atiende', Users::subordinatesIds($userId))
+            ->select(
+                'tst.Id',
+                'cs.Nombre as Branch',
+                'tst.FechaCreacion as Created_at',
+                'tst.IdEstatus as StatusId',
+                DB::raw('nombreUsuario(tst.Atiende) as Attendant')
+            )->get();
     }
 }

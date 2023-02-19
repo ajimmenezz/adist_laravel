@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Logistic\Pickup;
+use App\Http\Controllers\Support\BranchInventory;
 use App\Http\Middleware\ValidateAdISTToken;
 
 /*
@@ -23,6 +24,10 @@ Route::middleware([ValidateAdISTToken::class])->group(function () {
     Route::prefix('Logistica')->group(function () {
         Route::get('Recoleccion', [Pickup::class, 'index'])->name('logistic.pickup.index');
         Route::get('Recoleccion/{id}', [Pickup::class, 'one'])->name('logistic.pickup.one');
+    });
+
+    Route::prefix('Soporte-en-sitio')->group(function () {
+        Route::get('Censos', [BranchInventory::class, 'index'])->name('support.branch_inventory.index');
     });
 });
 
