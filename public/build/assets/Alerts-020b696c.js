@@ -1,0 +1,1 @@
+import{s as l}from"./sweetalert2.all-92414cd4.js";/* empty css                    */class i{error(e="",t=null,s=function(){}){l.fire({icon:"error",text:e,timer:t}).then(function(){s()})}success(e="",t=null,s=function(){}){l.fire({icon:"success",text:e,allowOutsideClick:!1,allowEscapeKey:!1,allowEnterKey:!1,showConfirmButton:!1,timer:t}).then(function(){s()})}}export{i as A};

@@ -28,6 +28,8 @@ Route::middleware([ValidateAdISTToken::class])->group(function () {
 
     Route::prefix('Soporte-en-sitio')->group(function () {
         Route::get('Censos', [BranchInventory::class, 'index'])->name('support.branch_inventory.index');
+        Route::get('Censos/{id}', [BranchInventory::class, 'one'])->name('support.branch_inventory.one');
+        Route::get('Censos/{id}/{area}', [BranchInventory::class, 'area'])->name('support.branch_inventory.area');
     });
 });
 

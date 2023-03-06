@@ -1,21 +1,24 @@
 {
-  "_Alerts-3c8a1e7e.js": {
-    "file": "assets/Alerts-3c8a1e7e.js",
+  "_Alerts-020b696c.js": {
+    "css": [
+      "assets/sweetalert2-50a54fda.css"
+    ],
+    "file": "assets/Alerts-020b696c.js",
     "imports": [
-      "_sweetalert2-985235ef.js"
+      "_sweetalert2.all-92414cd4.js"
     ]
   },
-  "_Alerts-6102510b.js": {
-    "file": "assets/Alerts-6102510b.js",
+  "_Alerts-1aaaf1a3.js": {
+    "css": [
+      "assets/sweetalert2-50a54fda.css"
+    ],
+    "file": "assets/Alerts-1aaaf1a3.js",
     "imports": [
-      "_sweetalert2-985235ef.js"
+      "_sweetalert2.all-ef2dc636.js"
     ]
   },
-  "_Alerts-a31028f1.js": {
-    "file": "assets/Alerts-a31028f1.js",
-    "imports": [
-      "_sweetalert2-985235ef.js"
-    ]
+  "_Buttons-e9a12f53.js": {
+    "file": "assets/Buttons-e9a12f53.js"
   },
   "_Events-89d9745c.js": {
     "file": "assets/Events-89d9745c.js"
@@ -26,17 +29,17 @@
   "_Status-92ab773d.js": {
     "file": "assets/Status-92ab773d.js"
   },
-  "_Status-f156a92e.js": {
-    "file": "assets/Status-f156a92e.js"
-  },
   "_Validates-7d06d876.js": {
     "file": "assets/Validates-7d06d876.js"
   },
-  "_sweetalert2-985235ef.js": {
-    "css": [
-      "assets/sweetalert2-50a54fda.css"
-    ],
-    "file": "assets/sweetalert2-985235ef.js"
+  "_Validates-b4a169ba.js": {
+    "file": "assets/Validates-b4a169ba.js"
+  },
+  "_sweetalert2.all-92414cd4.js": {
+    "file": "assets/sweetalert2.all-92414cd4.js"
+  },
+  "_sweetalert2.all-ef2dc636.js": {
+    "file": "assets/sweetalert2.all-ef2dc636.js"
   },
   "bootstrap-icons.woff": {
     "file": "assets/bootstrap-icons-13977b4a.woff",
@@ -167,12 +170,12 @@
     "src": "nunito-vietnamese-800-normal.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-d25c3370.css",
+    "file": "assets/app-765fbd0f.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/css/app_dark.css": {
-    "file": "assets/app_dark-2c0d51dc.css",
+    "file": "assets/app_dark-b503e176.css",
     "isEntry": true,
     "src": "resources/css/app_dark.css"
   },
@@ -305,16 +308,17 @@
     "src": "resources/fonts/vendor/fontsource/nunito/files/nunito-vietnamese-800-normal.woff2"
   },
   "resources/js/app.css": {
-    "file": "assets/app-80e81df5.css",
+    "file": "assets/app-b68779f1.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "css": [
-      "assets/app-80e81df5.css"
+      "assets/app-b68779f1.css",
+      "assets/sweetalert2-50a54fda.css"
     ],
-    "file": "assets/app-9c3e396c.js",
+    "file": "assets/app-aed8c67e.js",
     "imports": [
-      "_sweetalert2-985235ef.js"
+      "_sweetalert2.all-92414cd4.js"
     ],
     "isEntry": true,
     "src": "resources/js/app.js"
@@ -328,38 +332,70 @@
     "src": "resources/js/modules/index.js"
   },
   "resources/js/modules/logistic/pickup.js": {
-    "file": "assets/pickup-dd1b9b15.js",
+    "css": [
+      "assets/sweetalert2-50a54fda.css"
+    ],
+    "file": "assets/pickup-85317947.js",
     "imports": [
       "_Events-89d9745c.js",
-      "_Alerts-6102510b.js",
+      "_Buttons-e9a12f53.js",
+      "_Alerts-020b696c.js",
       "_Validates-7d06d876.js",
-      "_sweetalert2-985235ef.js"
+      "_sweetalert2.all-92414cd4.js"
     ],
     "isEntry": true,
     "src": "resources/js/modules/logistic/pickup.js"
   },
   "resources/js/modules/logistic/pickups.js": {
-    "file": "assets/pickups-d4dee1f6.js",
+    "css": [
+      "assets/sweetalert2-50a54fda.css"
+    ],
+    "file": "assets/pickups-155f63e9.js",
     "imports": [
       "_Events-89d9745c.js",
       "_Status-92ab773d.js",
-      "_Alerts-6102510b.js",
+      "_Buttons-e9a12f53.js",
       "_Validates-7d06d876.js",
-      "_sweetalert2-985235ef.js"
+      "_Alerts-020b696c.js",
+      "_sweetalert2.all-92414cd4.js"
     ],
     "isEntry": true,
     "src": "resources/js/modules/logistic/pickups.js"
   },
+  "resources/js/modules/support/branch_inventories/area.js": {
+    "file": "assets/area-e76ec36b.js",
+    "imports": [
+      "_Events-89d9745c.js",
+      "_Buttons-e9a12f53.js",
+      "_Validates-7d06d876.js",
+      "_sweetalert2.all-92414cd4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/modules/support/branch_inventories/area.js"
+  },
   "resources/js/modules/support/branch_inventories/index.js": {
-    "file": "assets/index-b6fdecac.js",
+    "css": [
+      "assets/sweetalert2-50a54fda.css"
+    ],
+    "file": "assets/index-30fb7a3b.js",
     "imports": [
       "_Events-89d9745c.js",
       "_Status-92ab773d.js",
-      "_Alerts-6102510b.js",
-      "_sweetalert2-985235ef.js"
+      "_Buttons-e9a12f53.js",
+      "_Alerts-020b696c.js",
+      "_sweetalert2.all-92414cd4.js"
     ],
     "isEntry": true,
     "src": "resources/js/modules/support/branch_inventories/index.js"
+  },
+  "resources/js/modules/support/branch_inventories/one.js": {
+    "file": "assets/one-95d03a5f.js",
+    "imports": [
+      "_Events-89d9745c.js",
+      "_Buttons-e9a12f53.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/modules/support/branch_inventories/one.js"
   },
   "resources/js/tapp.js": {
     "file": "assets/tapp-690d2348.js",
@@ -367,7 +403,7 @@
     "src": "resources/js/tapp.js"
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-87c75894.css",
+    "file": "assets/app-056b210f.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   },

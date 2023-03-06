@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServiciosTicket extends Model
 {
     use HasFactory;
-    protected $table = 't_servicios_tickets';
+    protected $table = 't_servicios_ticket';
     protected $primaryKey = 'Id';
     protected $fillable = [
         'Ticket',

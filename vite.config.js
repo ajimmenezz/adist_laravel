@@ -14,11 +14,14 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/tapp.js',
                 'resources/js/modules/index.js',
+                
 
                 'resources/js/modules/logistic/pickups.js',
                 'resources/js/modules/logistic/pickup.js',
 
-                'resources/js/modules/support/branch_inventories/index.js'
+                'resources/js/modules/support/branch_inventories/index.js',
+                'resources/js/modules/support/branch_inventories/one.js',
+                'resources/js/modules/support/branch_inventories/area.js',
             ],
             refresh: true,
         }),

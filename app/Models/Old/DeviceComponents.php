@@ -16,4 +16,9 @@ class DeviceComponents extends Model
     {
         return self::where('IdModelo', $model_id)->where('Flag', 1)->orderBy('Nombre', 'asc')->get();
     }
+
+    public static function getAccesoriesByModel($model_id)
+    {
+        return self::where('IdModelo', $model_id)->where('Flag', 1)->where('Accesorio', 1)->orderBy('Nombre', 'asc')->get();
+    }
 }

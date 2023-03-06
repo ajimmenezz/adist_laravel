@@ -35,6 +35,17 @@ Route::prefix('v1')->group(function () {
     Route::prefix('Support')->group(function () {
         Route::prefix('Branch-Inventory')->group(function () {
             Route::get('/', [BranchInventory::class, 'index']);
+            Route::put("/{id}/{area}", [BranchInventory::class, 'storePoint']);
+            
+            Route::put("/{id}/{area}/{point}/Device", [BranchInventory::class, 'storeDevice']);
+
+            Route::delete("Device/{id}", [BranchInventory::class, 'deleteDevice']);
+
+            Route::post("/UpdateModel/{id}", [BranchInventory::class, 'updateModel']);
+            Route::post("/UpdateSerial/{id}", [BranchInventory::class, 'updateSerial']);
+            Route::post("/UpdateStatus/{id}", [BranchInventory::class, 'updateStatus']);
+            Route::post("/UpdateFeatureValue/{id}", [BranchInventory::class, 'updateFeature']);
+            Route::post("/UpdateAccesory/{id}", [BranchInventory::class, 'updateAccesory']);
         });
     });
 });

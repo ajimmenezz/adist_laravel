@@ -62,6 +62,46 @@ class Controller extends BaseController
                     ]
                 ];
                 break;
+            case 'support.branch_inventory.one':
+                return [
+                    'title' => "Censo " . $data['branch'],
+                    'subtitle' => 'Captura de inventario de sucursal',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Soporte',
+                        ],
+                        [
+                            'label' => 'Censos',
+                            'url' => route('support.branch_inventory.index')
+                        ],
+                        [
+                            'label' => $data['branch']
+                        ]
+                    ]
+                ];
+                break;
+            case 'support.branch_inventory.area':
+                return [
+                    'title' => "Censo " . ucfirst(mb_strtolower($data['branch'])) . " - " . $data['area'] . " " . $data['point'],
+                    'subtitle' => 'Captura de inventario de sucursal',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Soporte',
+                        ],
+                        [
+                            'label' => 'Censos',
+                            'url' => route('support.branch_inventory.index')
+                        ],
+                        [
+                            'label' => $data['branch'],
+                            'url' => route('support.branch_inventory.one', $data['serviceId'])
+                        ],
+                        [
+                            'label' => $data['area']
+                        ]
+                    ]
+                ];
+                break;
             default:
                 return [
                     'title' => '',

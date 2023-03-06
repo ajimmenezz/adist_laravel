@@ -9212,3 +9212,15 @@ body.theme-dark .inventory-item {
     background-color: #6c757d;
     color: #fff;
 }
+
+body.theme-dark .support-censo-item-area{
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+    background-color: #6c757d;
+    color: #fff;
+}
+
+body.theme-dark .bg-custom-gray {
+    background-color: #6c757d !important;
+    border: transparent !important;
+    color: #fff !important;
+}

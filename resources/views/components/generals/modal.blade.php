@@ -1,5 +1,5 @@
 <div class="modal fade" id="{{ $id }}" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h6 class="modal-title fw-bold fs-5">{{ $title }}</h6>

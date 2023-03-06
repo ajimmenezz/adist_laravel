@@ -8,12 +8,12 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex flex-row-reverse">
-                <div>
+                {{-- <div>
                     <button id="logistic-new-pickup-form-button" class="btn btn-success text-uppercase fs-7 fw-bold">
                         <i class="bi bi-plus"></i>
                         {{ __('Nuevo') }}
                     </button>
-                </div>
+                </div> --}}
             </div>
             <div class="row mt-4"></div>
             <div class="row">
