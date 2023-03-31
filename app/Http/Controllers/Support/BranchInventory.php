@@ -9,9 +9,10 @@ use App\Models\Old\Censos;
 use App\Models\Old\AttentionAreas;
 use App\Models\Old\DeviceModels;
 use App\Models\Old\Status;
+use App\Models\Old\DeviceComponents;
+use App\Models\Old\SublinesByArea;
 use App\Models\Inventory\Catalogs\CInventoryFeaturesByLine;
 use App\Models\Censos\TDeviceFeatures;
-use App\Models\Old\DeviceComponents;
 
 class BranchInventory extends Controller
 {
@@ -62,6 +63,7 @@ class BranchInventory extends Controller
     {
         $service = Censos::getService($id);
         $area = AttentionAreas::where('Id', $area)->first();
+        $kit_sublines = SublinesByArea::get($service->BusinessUnitId, $area->Id);
 
         $title_content = $this->title_content('support.branch_inventory.area', [
             'title' => 'Censo ',
@@ -80,6 +82,8 @@ class BranchInventory extends Controller
         $models = DeviceModels::compact(null, 1);
         $device_status = Status::censo();
 
+        $kit_sublines = $this->compareDevicesWithKit($point_devices, $kit_sublines);
+
 
         return view("support.branch_inventory.area", [
             'inputs' => $request->all(),
@@ -92,6 +96,7 @@ class BranchInventory extends Controller
             'models' => $models,
             'point_devices' => $point_devices,
             'device_status' => $device_status,
+            'kit_sublines' => $kit_sublines,
             'new_device_form' => view('support.branch_inventory.new_device_form', [
                 'serviceId' => $service->Id,
                 'areaId' => $area->Id,
@@ -148,5 +153,21 @@ class BranchInventory extends Controller
         }
 
         return $point_devices;
+    }
+
+    private function compareDevicesWithKit($devices, $kit)
+    {
+        foreach ($kit as $k => $subline) {
+            foreach ($devices as $device) {
+                if ($device->SublineId == $subline->Id) {
+                    $subline->Quantity--;
+                }
+            }
+
+            if ($subline->Quantity <= 0) {
+                unset($kit[$k]);
+            }
+        }
+        return $kit;
     }
 }

@@ -289,24 +289,40 @@ $(function () {
             theme: "bootstrap-5",
         });
 
+        initDeviceModelSelect();
+    }
+
+    function initDeviceModelSelect(destroy = false) {
         if ($("#new-device-model").length > 0) {
+            if (destroy)
+                $("#new-device-model").select2("destroy");
+
             $("#new-device-model").select2({
                 theme: "bootstrap-5",
-                dropdownParent: $('#branch-inventory-new-device-modal')
+                dropdownParent: $('#branch-inventory-new-device-modal'),
+                placeholder: "Seleccione un modelo",
+                templateResult: function (data) {
+                    let option = $('#new-device-model').find('option[value="' + data.id + '"');
+                    if (option.data('hide') == false) {
+                        return data.text;
+                    }
+                }
             });
         }
     }
 
-    buttons.initClic("#new-device-form-button", function (btn) {
-        resetNewDeviceForm();
+    buttons.initClic("#new-device-form-button, .missing-subline-button", function (btn) {
+        let subline = btn.data("subline") ? btn.data("subline") : null;
+
+        resetNewDeviceForm(subline);
         modal.show();
 
         modal.onhide(function () {
-            resetNewDeviceForm();
+            resetNewDeviceForm(subline);
         });
 
         buttons.initClic("#branch-inventory-new-device-button", function (btn) {
-            if (validate.form("#assign-box-form")) {
+            if (validate.form("#new-device-form")) {
                 const data = {
                     api_key: api_key,
                     _method: "PUT",
@@ -340,8 +356,16 @@ $(function () {
         });
     });
 
-    function resetNewDeviceForm() {
+    function resetNewDeviceForm(subline = null) {
         validate.form_reset("#new-device-form");
+        $("#new-device-model option").data("hide", false);
+        if (subline) {
+            $("#new-device-model option").each(function () {
+                $(this).data("hide", ($(this).data("subline") != subline));
+            });
+            initDeviceModelSelect(true);
+        }
+
         $("#new-device-model").val("").trigger("change");
         $("#new-device-serial").val("");
         $("#new-device-status").val(17);

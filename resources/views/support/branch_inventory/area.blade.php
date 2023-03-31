@@ -38,14 +38,48 @@
     @if (isset($inputs['point']) && $inputs['point'] <= $points_by_area[$area->Id])
         <div class="card mb-5">
             <div class="card-body">
+                @if (!isset($kit_sublines) || count($kit_sublines) == 0)
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <i
+                                    class="bi bi-exclamation-triangle-fill me-2"></i>{{ __('El punto seleccionado no tiene definido un kit base o ya se han registrado todos los equipos necesarios.') }}
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="row">
+                        <div class="col-12 fw-bold fs-4">
+                            Equipos base faltantes: <i class="bi bi-question-circle-fill text-secondary"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="{{ __('Cantidad de equipos por sublínea que se establecen como kit para el área de atención') }}"></i>
+                        </div>
+                        <div class="col-12 pt-2 pb-4 table-responsive">
+                            <div class="d-flex">
+                                @foreach ($kit_sublines as $subline)
+                                    <div class="mx-2">
+                                        <button type="button" class="btn btn-outline-danger missing-subline-button"
+                                            data-subline="{{ $subline->Id }}">
+                                            <span class="d-block fs-1 fw-bold">{{ $subline->Quantity }}</span>
+                                            <span
+                                                class="fs-7 d-block text-uppercase text-nowrap fw-bold">{{ $subline->LineName }}</span>
+                                            <span
+                                                class="fs-8 d-block text-uppercase text-nowrap">{{ $subline->Name }}</span>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @foreach ($point_devices as $device)
                     <div id="device-card-{{ $device->Id }}"
                         class="device-card card border border-1 border-rounded bg-custom-gray {{ $device->IdEstatus == 17 ? '' : 'border-danger' }}">
                         <div class="card-header table-responsive bg-transparent">
                             <ul class="nav nav-tabs border-0" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="device-info-tab-{{ $device->Id }}" data-bs-toggle="tab"
-                                        href="#device-info-section-{{ $device->Id }}" role="tab"
+                                    <a class="nav-link active" id="device-info-tab-{{ $device->Id }}"
+                                        data-bs-toggle="tab" href="#device-info-section-{{ $device->Id }}" role="tab"
                                         aria-controls="Equipo / Item" aria-selected="true">Equipo /Item</a>
                                 </li>
                                 @if (isset($device->features) && count($device->features) > 0)
@@ -135,7 +169,8 @@
                                                             @endforeach
                                                         </select>
                                                     @else
-                                                        <input type="text" class="form-control censo-feature-value-text"
+                                                        <input type="text"
+                                                            class="form-control censo-feature-value-text"
                                                             data-id="{{ $device->Id }}"
                                                             data-feature="{{ $feature->Id }}">
                                                     @endif

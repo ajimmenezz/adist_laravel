@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-12 col-md-10 col-lg-9 form-group">
             <label class="form-label require">Equipo</label>
-            <select id="new-device-model" class="form-control" style="width:100%">
-                <option value="0">Seleccione un equipo</option>
+            <select id="new-device-model" class="form-control" style="width:100%" required>
+                <option value="">Seleccione un modelo</option>
                 @foreach ($models as $model)
-                    <option value="{{ $model->Id }}">
+                    <option data-subline="{{ $model->SublineId }}" value="{{ $model->Id }}">
                         {{ mb_strtoupper($model->ModelCompact) }}
                     </option>
                 @endforeach

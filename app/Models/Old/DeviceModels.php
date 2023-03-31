@@ -21,6 +21,7 @@ class DeviceModels extends Model
             ->whereNotIn('cle.Id', [29, 31, 32, 33, 37, 39, 40, 41, 42, 43])
             ->select(
                 'cme.Id',
+                'cse.Id as SublineId',
                 DB::raw('modelo(cme.Id) as ModelCompact'),
             );
 
