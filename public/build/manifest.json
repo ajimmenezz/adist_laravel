@@ -8,15 +8,6 @@
       "_sweetalert2.all-92414cd4.js"
     ]
   },
-  "_Alerts-1aaaf1a3.js": {
-    "css": [
-      "assets/sweetalert2-50a54fda.css"
-    ],
-    "file": "assets/Alerts-1aaaf1a3.js",
-    "imports": [
-      "_sweetalert2.all-ef2dc636.js"
-    ]
-  },
   "_Buttons-e9a12f53.js": {
     "file": "assets/Buttons-e9a12f53.js"
   },
@@ -31,137 +22,6 @@
   },
   "_sweetalert2.all-92414cd4.js": {
     "file": "assets/sweetalert2.all-92414cd4.js"
-  },
-  "_sweetalert2.all-ef2dc636.js": {
-    "file": "assets/sweetalert2.all-ef2dc636.js"
-  },
-  "bootstrap-icons.woff": {
-    "file": "assets/bootstrap-icons-13977b4a.woff",
-    "src": "bootstrap-icons.woff"
-  },
-  "bootstrap-icons.woff2": {
-    "file": "assets/bootstrap-icons-c69bf1cc.woff2",
-    "src": "bootstrap-icons.woff2"
-  },
-  "nunito-all-300-normal.woff": {
-    "file": "assets/nunito-all-300-normal-452b4775.woff",
-    "src": "nunito-all-300-normal.woff"
-  },
-  "nunito-all-400-normal.woff": {
-    "file": "assets/nunito-all-400-normal-2749635f.woff",
-    "src": "nunito-all-400-normal.woff"
-  },
-  "nunito-all-600-normal.woff": {
-    "file": "assets/nunito-all-600-normal-f6055c62.woff",
-    "src": "nunito-all-600-normal.woff"
-  },
-  "nunito-all-700-normal.woff": {
-    "file": "assets/nunito-all-700-normal-9ac1f64b.woff",
-    "src": "nunito-all-700-normal.woff"
-  },
-  "nunito-all-800-normal.woff": {
-    "file": "assets/nunito-all-800-normal-5ebe3d95.woff",
-    "src": "nunito-all-800-normal.woff"
-  },
-  "nunito-cyrillic-300-normal.woff2": {
-    "file": "assets/nunito-cyrillic-300-normal-a6b4117f.woff2",
-    "src": "nunito-cyrillic-300-normal.woff2"
-  },
-  "nunito-cyrillic-400-normal.woff2": {
-    "file": "assets/nunito-cyrillic-400-normal-88439680.woff2",
-    "src": "nunito-cyrillic-400-normal.woff2"
-  },
-  "nunito-cyrillic-600-normal.woff2": {
-    "file": "assets/nunito-cyrillic-600-normal-f8ff8539.woff2",
-    "src": "nunito-cyrillic-600-normal.woff2"
-  },
-  "nunito-cyrillic-700-normal.woff2": {
-    "file": "assets/nunito-cyrillic-700-normal-124b6ae7.woff2",
-    "src": "nunito-cyrillic-700-normal.woff2"
-  },
-  "nunito-cyrillic-800-normal.woff2": {
-    "file": "assets/nunito-cyrillic-800-normal-985be641.woff2",
-    "src": "nunito-cyrillic-800-normal.woff2"
-  },
-  "nunito-cyrillic-ext-300-normal.woff2": {
-    "file": "assets/nunito-cyrillic-ext-300-normal-ceae79e8.woff2",
-    "src": "nunito-cyrillic-ext-300-normal.woff2"
-  },
-  "nunito-cyrillic-ext-400-normal.woff2": {
-    "file": "assets/nunito-cyrillic-ext-400-normal-29a4d00e.woff2",
-    "src": "nunito-cyrillic-ext-400-normal.woff2"
-  },
-  "nunito-cyrillic-ext-600-normal.woff2": {
-    "file": "assets/nunito-cyrillic-ext-600-normal-0bcfeeed.woff2",
-    "src": "nunito-cyrillic-ext-600-normal.woff2"
-  },
-  "nunito-cyrillic-ext-700-normal.woff2": {
-    "file": "assets/nunito-cyrillic-ext-700-normal-926ccc34.woff2",
-    "src": "nunito-cyrillic-ext-700-normal.woff2"
-  },
-  "nunito-cyrillic-ext-800-normal.woff2": {
-    "file": "assets/nunito-cyrillic-ext-800-normal-65f430a2.woff2",
-    "src": "nunito-cyrillic-ext-800-normal.woff2"
-  },
-  "nunito-latin-300-normal.woff2": {
-    "file": "assets/nunito-latin-300-normal-ce8a080d.woff2",
-    "src": "nunito-latin-300-normal.woff2"
-  },
-  "nunito-latin-400-normal.woff2": {
-    "file": "assets/nunito-latin-400-normal-5e2f97ea.woff2",
-    "src": "nunito-latin-400-normal.woff2"
-  },
-  "nunito-latin-600-normal.woff2": {
-    "file": "assets/nunito-latin-600-normal-4e1f5eed.woff2",
-    "src": "nunito-latin-600-normal.woff2"
-  },
-  "nunito-latin-700-normal.woff2": {
-    "file": "assets/nunito-latin-700-normal-923eb1ee.woff2",
-    "src": "nunito-latin-700-normal.woff2"
-  },
-  "nunito-latin-800-normal.woff2": {
-    "file": "assets/nunito-latin-800-normal-0e63ca0b.woff2",
-    "src": "nunito-latin-800-normal.woff2"
-  },
-  "nunito-latin-ext-300-normal.woff2": {
-    "file": "assets/nunito-latin-ext-300-normal-87cd244c.woff2",
-    "src": "nunito-latin-ext-300-normal.woff2"
-  },
-  "nunito-latin-ext-400-normal.woff2": {
-    "file": "assets/nunito-latin-ext-400-normal-a8aed46d.woff2",
-    "src": "nunito-latin-ext-400-normal.woff2"
-  },
-  "nunito-latin-ext-600-normal.woff2": {
-    "file": "assets/nunito-latin-ext-600-normal-47343f99.woff2",
-    "src": "nunito-latin-ext-600-normal.woff2"
-  },
-  "nunito-latin-ext-700-normal.woff2": {
-    "file": "assets/nunito-latin-ext-700-normal-3ea0b8a2.woff2",
-    "src": "nunito-latin-ext-700-normal.woff2"
-  },
-  "nunito-latin-ext-800-normal.woff2": {
-    "file": "assets/nunito-latin-ext-800-normal-22822cdc.woff2",
-    "src": "nunito-latin-ext-800-normal.woff2"
-  },
-  "nunito-vietnamese-300-normal.woff2": {
-    "file": "assets/nunito-vietnamese-300-normal-852fea9b.woff2",
-    "src": "nunito-vietnamese-300-normal.woff2"
-  },
-  "nunito-vietnamese-400-normal.woff2": {
-    "file": "assets/nunito-vietnamese-400-normal-7ed3b3e7.woff2",
-    "src": "nunito-vietnamese-400-normal.woff2"
-  },
-  "nunito-vietnamese-600-normal.woff2": {
-    "file": "assets/nunito-vietnamese-600-normal-2c7a70fb.woff2",
-    "src": "nunito-vietnamese-600-normal.woff2"
-  },
-  "nunito-vietnamese-700-normal.woff2": {
-    "file": "assets/nunito-vietnamese-700-normal-cd106164.woff2",
-    "src": "nunito-vietnamese-700-normal.woff2"
-  },
-  "nunito-vietnamese-800-normal.woff2": {
-    "file": "assets/nunito-vietnamese-800-normal-0527ea59.woff2",
-    "src": "nunito-vietnamese-800-normal.woff2"
   },
   "resources/css/app.css": {
     "file": "assets/app-765fbd0f.css",
@@ -357,7 +217,7 @@
     "src": "resources/js/modules/logistic/pickups.js"
   },
   "resources/js/modules/support/branch_inventories/area.js": {
-    "file": "assets/area-5d52f3f9.js",
+    "file": "assets/area-4d518142.js",
     "imports": [
       "_Events-89d9745c.js",
       "_Buttons-e9a12f53.js",

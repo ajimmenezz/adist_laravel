@@ -10,6 +10,17 @@ $(function () {
     const modal = new Modal('branch-inventory-new-device-modal');
     const validate = new Validate();
 
+    let models = [];
+
+    $("#new-device-model option").each(function () {
+        models.push({
+            id: $(this).val(),
+            text: $(this).text(),
+            subline: $(this).data("subline"),
+        });
+    });
+
+
     let get_params = new URLSearchParams(window.location.search);
     goToDevice(get_params.get("device"));
 
@@ -289,26 +300,7 @@ $(function () {
             theme: "bootstrap-5",
         });
 
-        initDeviceModelSelect();
-    }
-
-    function initDeviceModelSelect(destroy = false) {
-        if ($("#new-device-model").length > 0) {
-            if (destroy)
-                $("#new-device-model").select2("destroy");
-
-            $("#new-device-model").select2({
-                theme: "bootstrap-5",
-                dropdownParent: $('#branch-inventory-new-device-modal'),
-                placeholder: "Seleccione un modelo",
-                templateResult: function (data) {
-                    let option = $('#new-device-model').find('option[value="' + data.id + '"');
-                    if (option.data('hide') == false) {
-                        return data.text;
-                    }
-                }
-            });
-        }
+        // initDeviceModelSelect();
     }
 
     buttons.initClic("#new-device-form-button, .missing-subline-button", function (btn) {
@@ -358,17 +350,32 @@ $(function () {
 
     function resetNewDeviceForm(subline = null) {
         validate.form_reset("#new-device-form");
-        $("#new-device-model option").data("hide", false);
-        if (subline) {
-            $("#new-device-model option").each(function () {
-                $(this).data("hide", ($(this).data("subline") != subline));
-            });
-            initDeviceModelSelect(true);
-        }
+        setModelOptions(subline);
 
         $("#new-device-model").val("").trigger("change");
         $("#new-device-serial").val("");
         $("#new-device-status").val(17);
+    }
+
+    function setModelOptions(subline = null) {
+        $("#new-device-model option").remove();
+        let filter_models = models;
+        if (subline) {
+            filter_models = models.filter(function (model) {
+                return model.subline == subline;
+            });
+        }
+
+        $.each(filter_models, function (i, model) {
+            $("#new-device-model").append("<option value='" + model.id + "' data-subline='" + model.subline + "' data-hide='0'>" + model.text + "</option>");
+        });
+
+        $("#new-device-model").select2({
+            theme: "bootstrap-5",
+            dropdownParent: $('#branch-inventory-new-device-modal'),
+            placeholder: "Seleccione un modelo"
+        });
+
     }
 
     buttons.initClic(".censo-delete-device", function (btn) {
