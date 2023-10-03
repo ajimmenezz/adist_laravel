@@ -16,6 +16,13 @@ class ValidateToken
      */
     public function handle(Request $request, Closure $next)
     {
+
+        $url = $request->getPathInfo();
+
+        if (str_starts_with($url, '/api/v2')) {
+            return $next($request);
+        }
+
         if (!isset($request->api_key)) {
             return response()->json([
                 'code' => 401,

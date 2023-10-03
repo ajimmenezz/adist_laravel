@@ -13,6 +13,8 @@ use App\Models\Old\DeviceComponents;
 use App\Models\Old\SublinesByArea;
 use App\Models\Inventory\Catalogs\CInventoryFeaturesByLine;
 use App\Models\Censos\TDeviceFeatures;
+use App\Exports\Inventories\Branch as BranchExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BranchInventory extends Controller
 {
@@ -169,5 +171,21 @@ class BranchInventory extends Controller
             }
         }
         return $kit;
+    }
+
+    public function xlsExport($id)
+    {
+        try{
+            $service = Censos::getService($id);
+            $datetime = date('Ymd_His');
+
+            return (new BranchExport($id))->download("Censo_{$service->Branch}_{$datetime}.xlsx");
+        }catch(\Exception $e){
+            return $this->error(500, "No se ha podido generar el archivo excel",[
+                'error' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ]);
+        }
     }
 }

@@ -9,10 +9,11 @@
         <div class="card-header">
             <div class="d-flex flex-row-reverse">
                 <div>
-                    <button id="excel-file" class="btn btn-success" data-service="{{ $service->Id }}">
+                    <a target="_blank" class="btn btn-success"
+                        href="{{ route('support.branch_inventory.export', ['id' => $service->Id]) }}">
                         <i class="bi bi-file-earmark-excel-fill"></i>
                         <span>Exportar a Excel</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

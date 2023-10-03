@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Logistic\Pickup;
 use App\Http\Controllers\Api\Devices\Components;
 use App\Http\Controllers\Api\Support\BranchInventory;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Outsourcing\Reports;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,16 @@ use App\Http\Controllers\Api\Support\BranchInventory;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v2')->group(function(){
+    Route::get('/', function(){
+        return response()->json([
+            'message' => 'Welcome to the API v2'
+        ]);
+    });
+
+    Route::get('/Outsourcing/Reports/WeekPendingInvoices', [Reports::class, 'weekPendingInvoices']);
 });
 
 Route::prefix('v1')->group(function () {
@@ -36,7 +48,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('Branch-Inventory')->group(function () {
             Route::get('/', [BranchInventory::class, 'index']);
             Route::put("/{id}/{area}", [BranchInventory::class, 'storePoint']);
-            
+
             Route::put("/{id}/{area}/{point}/Device", [BranchInventory::class, 'storeDevice']);
 
             Route::delete("Device/{id}", [BranchInventory::class, 'deleteDevice']);

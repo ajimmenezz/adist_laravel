@@ -34,6 +34,17 @@ class Censos extends Model
         }
     }
 
+    public static function getInventory($id){
+        return self::baseQuery()
+            ->where('t_censos.IdServicio', $id)
+            ->orderBy('caa.Nombre', 'asc')
+            ->orderBy('t_censos.Punto', 'asc')
+            ->orderBy('cle.Nombre', 'asc')
+            ->orderBy('cse.Nombre', 'asc')
+            ->orderBy('cma.Nombre', 'asc')
+            ->orderBy('cme.Nombre', 'asc');
+    } 
+
     public static function getOne($id)
     {
         return self::baseQuery()
