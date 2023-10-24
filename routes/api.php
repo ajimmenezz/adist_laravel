@@ -23,16 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v2')->group(function(){
-    Route::get('/', function(){
-        return response()->json([
-            'message' => 'Welcome to the API v2'
-        ]);
-    });
-
-    Route::get('/Outsourcing/Reports/WeekPendingInvoices', [Reports::class, 'weekPendingInvoices']);
-});
-
 Route::prefix('v1')->group(function () {
     Route::get('Logistic/Pickup', [Pickup::class, 'index']);
     Route::put('Logistic/Pickup', [Pickup::class, 'store']);
@@ -61,3 +51,15 @@ Route::prefix('v1')->group(function () {
         });
     });
 });
+
+Route::prefix('v2')->group(function(){
+    Route::get('/', function(){
+        return response()->json([
+            'message' => 'Welcome to the API v2'
+        ]);
+    });
+
+    Route::get('/Outsourcing/Reports/WeekPendingInvoices', [Reports::class, 'weekPendingInvoices']);
+});
+
+

@@ -30,7 +30,7 @@ Route::middleware([ValidateAdISTToken::class])->group(function () {
         Route::get('Censos', [BranchInventory::class, 'index'])->name('support.branch_inventory.index');
         Route::get('Censos/{id}', [BranchInventory::class, 'one'])->name('support.branch_inventory.one');
         Route::get('Censos/sheetExport/{id}', [BranchInventory::class, 'xlsExport'])->name('support.branch_inventory.export');
-        
+
         Route::get('Censos/{id}/{area}', [BranchInventory::class, 'area'])->name('support.branch_inventory.area');
 
     });
@@ -41,5 +41,6 @@ Route::get('/logout', function () {
     session()->flush();
     return redirect('/');
 });
+
 
 Auth::routes();
