@@ -20,10 +20,6 @@ class BranchInventory extends Controller
 {
     public function index()
     {
-        $title_content = $this->title_content('support.branch_inventory.index', [
-            'title' => 'Censos'
-        ]);
-
         $table_headers = [
             ['label' => '', 'classes' => ['all']],
             ['label' => __('Id'), 'classes' => ['never']],
@@ -34,9 +30,9 @@ class BranchInventory extends Controller
         ];
 
         return view('support.branch_inventory.index', [
-            'title' => $title_content['title'],
-            'subtitle' => $title_content['subtitle'],
-            'breadcrumb' => $title_content['breadcrumb'],
+            'title_content' => $this->title_content('support.branch_inventory.index', [
+                'title' => 'Censos'
+            ]),
             'table_headers' => $table_headers
         ]);
     }
@@ -45,15 +41,11 @@ class BranchInventory extends Controller
     {
         $service = Censos::getService($id);
 
-        $title_content = $this->title_content('support.branch_inventory.one', [
-            'title' => 'Censo ',
-            'branch' => $service->Branch
-        ]);
-
         return view("support.branch_inventory.one", [
-            'title' => $title_content['title'],
-            'subtitle' => $title_content['subtitle'],
-            'breadcrumb' => $title_content['breadcrumb'],
+            'title_content' => $this->title_content('support.branch_inventory.one', [
+                'title' => 'Censo ',
+                'branch' => $service->Branch
+            ]),
             'service' => $service,
             'attention_areas' => AttentionAreas::get(null, $service->CustomerId, $service->BusinessUnitId, 1),
             'points_by_area' => Censos::getPointsByArea($id),
@@ -89,9 +81,7 @@ class BranchInventory extends Controller
 
         return view("support.branch_inventory.area", [
             'inputs' => $request->all(),
-            'title' => $title_content['title'],
-            'subtitle' => $title_content['subtitle'],
-            'breadcrumb' => $title_content['breadcrumb'],
+            'title_content' => $title_content,
             'service' => $service,
             'area' => $area,
             'points_by_area' => Censos::getPointsByArea($id, $area->Id),

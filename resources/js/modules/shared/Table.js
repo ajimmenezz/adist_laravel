@@ -1,5 +1,5 @@
 class Tables {
-    init(id, data = {}, columns = [], defs = [], callback = function() {}, onDraw = function() {}) {
+    init(id, data = {}, columns = [], defs = [], callback = function () { }, onDraw = function () { }) {
         $("#" + id).DataTable({
             data: data,
             columns: columns,
@@ -13,10 +13,10 @@ class Tables {
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
             },
-            initComplete: function() {
+            initComplete: function () {
                 callback();
             },
-            drawCallback: function() {
+            drawCallback: function () {
                 onDraw();
             }
         });
@@ -36,7 +36,7 @@ class Tables {
     }
 
     destroy(id) {
-        $("#" + id).DataTable().destroy();
+        $("#" + id).DataTable().clear().destroy();
     }
 
     object(id) {
@@ -49,6 +49,26 @@ class Tables {
 
     sortByColumn(id, column, order = "asc") {
         $("#" + id).DataTable().order([column, order]).draw();
+    }
+
+    rowData(id, row) {
+        return $("#" + id).DataTable().row(row).data();
+    }
+
+    clear(id) {
+        $("#" + id).DataTable().clear().draw();
+    }
+
+    allData(id) {
+        return $("#" + id).DataTable().rows().data();
+    }
+
+    isEmpty(id) {
+        return $("#" + id).DataTable().data().count() === 0;
+    }
+
+    isNotEmpty(id) {
+        return !this.isEmpty(id);
     }
 }
 

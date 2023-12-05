@@ -4,7 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Logistic\Pickup;
 use App\Http\Controllers\Api\Devices\Components;
+use App\Http\Controllers\Api\Logistic\Distribution\Destinations;
 use App\Http\Controllers\Api\Support\BranchInventory;
+use App\Http\Controllers\Api\Warehouse\Distribution;
+use App\Http\Controllers\Api\Warehouse\DistributionDevices;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Outsourcing\Reports;
 
@@ -52,8 +55,8 @@ Route::prefix('v1')->group(function () {
     });
 });
 
-Route::prefix('v2')->group(function(){
-    Route::get('/', function(){
+Route::prefix('v2')->group(function () {
+    Route::get('/', function () {
         return response()->json([
             'message' => 'Welcome to the API v2'
         ]);
@@ -62,4 +65,39 @@ Route::prefix('v2')->group(function(){
     Route::get('/Outsourcing/Reports/WeekPendingInvoices', [Reports::class, 'weekPendingInvoices']);
 });
 
+Route::prefix('v3')->group(function () {
+    Route::get('/', function () {
+        return response()->json([
+            'message' => 'Welcome to the API v3'
+        ]);
+    });
 
+    Route::prefix('Warehouse')->group(function () {
+
+        Route::get('/Distribution', [Distribution::class, 'index']);
+        Route::post('/Distribution', [Distribution::class, 'store']);
+
+        Route::get('/Distribution/{id}/Devices', [DistributionDevices::class, 'index']);
+        Route::put('/Distribution/{id}/Devices', [DistributionDevices::class, 'store']);
+
+        Route::get('/Distribution/AvailableInventory/{customerId}', [Distribution::class, 'availableInventory'])->name('warehouse.distribution.available_inventory');
+
+        Route::delete('Distribution/{id}', [DistributionDevices::class, 'destroy']);
+
+        Route::post('Destination/ToLogistic/{id}', [DistributionDevices::class, 'toLogistic']);
+        Route::delete('Destination/ToLogistic/{id}', [DistributionDevices::class, 'cancelToLogistic']);
+
+        Route::post('Destination/ToSupport/{id}', [DistributionDevices::class, 'toSupport']);
+        Route::delete('Destination/ToSupport/{id}', [DistributionDevices::class, 'cancelToSupport']);
+
+        Route::post('Distribution/TransferCode', [DistributionDevices::class, 'transferCode']);
+    });
+
+    Route::prefix('Logistic')->group(function(){
+        Route::get('/Destinations', [Destinations::class, 'index']);
+
+        Route::get('/Distribution/Destination/Devices', [DistributionDevices::class, 'pendingTransferDevices']);
+
+        Route::post('/Distribution/Destination/AcceptDevices', [DistributionDevices::class, 'acceptDevices']);  
+    });
+});

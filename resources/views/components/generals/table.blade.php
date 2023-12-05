@@ -1,4 +1,4 @@
-<table id="{{ $id }}" class="table table-bordered text-nowrap border-bottom mb-4 w-100">
+<table id="{{ $id }}" class="table table-bordered text-nowrap border-bottom mb-4 w-100 {{ $classes }}">
     <thead>
         <tr>
             @foreach ($headers as $item)

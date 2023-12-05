@@ -13,10 +13,12 @@ class Table extends Component
      */
     public $id;
     public $headers;
-    public function __construct(String $id, array $headers)
+    public $classes;
+    public function __construct(String $id, array $headers, String $classes = null)
     {
         $this->id = $id;
         $this->headers = $headers;
+        $this->classes = $classes;
     }
 
     /**
@@ -28,7 +30,8 @@ class Table extends Component
     {
         return view('components.generals.table', [
             'id' => $this->id,
-            'headers' => $this->headers
+            'headers' => $this->headers,
+            'classes' => $this->classes
         ]);
     }
 }

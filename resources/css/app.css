@@ -383,7 +383,7 @@ screen and (-ms-high-contrast:active) {
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #607080;
-    --bs-body-bg: #f2f7ff;
+    --bs-body-bg: #e1e1e1;
     --bs-border-width: 1px;
     --bs-border-style: solid;
     --bs-border-color: #dee2e6;
@@ -22617,4 +22617,57 @@ a {
 
 .bg-custom-gray {
     background-color: #F8F9FA !important;
+}
+
+.toast-error {
+    background-color: #BD362F !important;
+}
+
+.vh-90 {
+    height: 90vh;
+}
+
+.vh-85 {
+    height: 85vh;
+}
+
+.vh-80 {
+    height: 80vh;
+}
+
+.vh-70 {
+    height: 70vh;
+}
+
+.vh-60 {
+    height: 60vh;
+}
+
+.toast.toast-success{
+    background-color: #51A351 !important;
+}
+
+.siccob-nav-tabs{
+    border-bottom: 0px !important;
+}
+.siccob-nav-tabs li{
+    border-bottom: 0px !important;
+}
+.siccob-nav-tabs li button{
+    color: #99A1B7 !important;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    background-color: #FFFFFF !important;
+}
+.siccob-nav-tabs li button.active{
+    color: #00A3FF !important;
+}
+
+.siccob-nav-tabs li button:hover{
+    text-shadow: none !important;
+}
+
+.table.dataTable{
+    font-size: 0.8rem !important;
 }

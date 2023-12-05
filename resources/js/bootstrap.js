@@ -12,8 +12,7 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import DataTable from "datatables.net-bs5";
-import "datatables.net-buttons-bs5";
-import "datatables.net-responsive-bs5";
+window.DataTable = DataTable;
 
 import Swal from "sweetalert2";
 window.Swal = Swal;

@@ -11,14 +11,10 @@ class Title extends Component
      *
      * @return void
      */
-    public $title;
-    public $subtitle;
-    public $breadcrumb;
-    public function __construct(String $title, String $subtitle = '', array $breadcrumb = [])
+    public $content;
+    public function __construct($content)
     {
-        $this->title = $title;
-        $this->subtitle = $subtitle;
-        $this->breadcrumb = $breadcrumb;
+        $this->content = $content;
     }
 
     /**
@@ -31,9 +27,9 @@ class Title extends Component
         return view(
             'components.generals.title',
             [
-                'title' => $this->title,
-                'subtitle' => $this->subtitle,
-                'breadcrumb' => $this->breadcrumb
+                'title' => $this->content['title'],
+                'subtitle' => $this->content['subtitle'],
+                'breadcrumb' => $this->content['breadcrumb'],
             ]
         );
     }

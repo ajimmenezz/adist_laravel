@@ -14,8 +14,6 @@ class Pickup extends Controller
 {
     public function index()
     {
-        $title_content = $this->title_content('logistic.pickup.index');
-
         $table_headers = [
             ['label' => '', 'classes' => ['all']],
             ['label' => __('Id'), 'classes' => ['never']],
@@ -26,9 +24,7 @@ class Pickup extends Controller
         ];
 
         return view('logistic.pickup.index', [
-            'title' => $title_content['title'],
-            'subtitle' => $title_content['subtitle'],
-            'breadcrumb' => $title_content['breadcrumb'],
+            'title_content' => $this->title_content('logistic.pickup.index'),
             'table_headers' => $table_headers,
             'pickupForm' => view('logistic.pickup.new_form', [
                 'branches' => Branches::where('IdCliente', 1)
@@ -52,20 +48,9 @@ class Pickup extends Controller
 
         return view('logistic.pickup.one', [
             'id' => $id,
-            'title' => $pickup->BranchName,
-            'subtitle' => 'Recolección de equipos y accesorios del cliente',
-            'breadcrumb' => [
-                [
-                    'label' => __('Logística'),
-                ],
-                [
-                    'label' => __('Recolecciones'),
-                    'url' => route('logistic.pickup.index')
-                ],
-                [
-                    'label' => $pickup->BranchName
-                ]
-            ],
+            'title_content' => $this->title_content('logistic.pickup.one', [
+                'branch' => $pickup->BranchName,
+            ]),
             'boxedItems' => $this->getBoxGroupedCenso($boxed['items']),
             'unboxedItems' => $this->getLineGroupedCenso($unboxed['items']),
             'boxSelectionForm' => view('logistic.pickup.box_selection_form', []),

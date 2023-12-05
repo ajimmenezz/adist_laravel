@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Notifications\Telegram\SimpleMessage;
+use App\Notifications\Telegram\FileMessage;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -29,9 +33,92 @@ class Controller extends BaseController
         ]);
     }
 
+    protected function errorResponse(String $message = 'error', $e = null)
+    {
+        if (env('APP_ENV') != 'production') {
+            return response()->json([
+                'message' => $message,
+                'error' => $e->getMessage() ?? null,
+                'line' => $e->getLine() ?? null,
+                'file' => $e->getFile() ?? null,
+                'trace' => $e->getTrace() ?? null
+            ], 500);
+        } else {
+            return response()->json([
+                'message' => $message
+            ], 500);
+        }
+    }
+
     protected function title_content(String $section, array $data = [])
     {
         switch ($section) {
+            case 'logistic.distribution.index':
+                return [
+                    'title' => 'Distribución de Equipos',
+                    'subtitle' => 'Destinos de equipos por sucursal y proyecto',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Logística',
+                        ],
+                        [
+                            'label' => 'Distribuciones',
+                            'url' => route('logistic.distribution.index')
+                        ]
+                    ]
+                ];
+                break;
+            case 'warehouse.distribution.one':
+                return [
+                    'title' => $data['project'],
+                    'subtitle' => 'Proyecto de distribución' . ' - ' . $data['customer'],
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Almacén',
+                        ],
+                        [
+                            'label' => 'Distribuciones',
+                            'url' => route('warehouse.distribution.index')
+                        ],
+                        [
+                            'label' => $data['project']
+                        ]
+                    ]
+                ];
+                break;
+            case 'warehouse.distribution.index':
+                return [
+                    'title' => 'Distribución',
+                    'subtitle' => 'Distribución de equipos a sucursales',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Almacén',
+                        ],
+                        [
+                            'label' => 'Distribuciones',
+                            'url' => route('warehouse.distribution.index')
+                        ]
+                    ]
+                ];
+                break;
+            case 'logistic.pickup.one':
+                return [
+                    'title' => $data['branch'],
+                    'subtitle' => 'Recolección de equipos y accesorios del cliente',
+                    'breadcrumb' => [
+                        [
+                            'label' => __('Logística'),
+                        ],
+                        [
+                            'label' => __('Recolecciones'),
+                            'url' => route('logistic.pickup.index')
+                        ],
+                        [
+                            'label' => $data['branch']
+                        ]
+                    ],
+                ];
+                break;
             case 'logistic.pickup.index':
                 return [
                     'title' => 'Recolección',
@@ -110,5 +197,42 @@ class Controller extends BaseController
                 ];
                 break;
         }
+    }
+
+    protected function sendTelegramMessage($chatId, String $message)
+    {
+        try {
+            $notification =  new SimpleMessage(
+                $chatId,
+                $message
+            );
+
+            Notification::send($notification, $notification);
+            return true;
+        } catch (\Exception $e) {
+            throw new \Exception("Error al enviar el mensaje de Telegram, " . $e->getMessage());
+        }
+    }
+
+    protected function sendTelegramFile($chatId, String $message = "", String $file, String $file_name)
+    {
+        try {
+            $notification =  new FileMessage(
+                $chatId,
+                $message,
+                $file,
+                $file_name
+            );
+
+            Notification::send($notification, $notification);
+            return true;
+        } catch (\Exception $e) {
+            throw new \Exception("Error al enviar el archivo en Telegram, " . $e->getMessage());
+        }
+    }
+
+    public static function toRawSql($query)
+    {
+        return Str::replaceArray('?', $query->getBindings(), $query->toSql());
     }
 }

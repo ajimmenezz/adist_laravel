@@ -17,6 +17,18 @@ class Menu extends Component
         $path = $this->getUrl();
         $this->menu = [
             [
+                'label' => 'Almacén',
+                'icon' => 'bi bi-box-seam',
+                'active' => (isset($path[1]) && $path[1] == 'Almacen') ? true : false,
+                'children' => [
+                    [
+                        'label' => 'Distribución',
+                        'url' => route('warehouse.distribution.index'),
+                        'active' => (isset($path[2]) && $path[2] == 'Distribucion') ? true : false
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Logística',
                 'icon' => 'bi bi-truck',
                 'active' => (isset($path[1]) && $path[1] == 'Logistica') ? true : false,
@@ -25,6 +37,11 @@ class Menu extends Component
                         'label' => 'Recolección',
                         'url' => route('logistic.pickup.index'),
                         'active' => (isset($path[2]) && $path[2] == 'Recoleccion') ? true : false
+                    ],
+                    [
+                        'label' => 'Distribución',
+                        'url' => route('logistic.distribution.index'),
+                        'active' => (isset($path[2]) && $path[2] == 'Distribucion') ? true : false
                     ]
                 ]
             ],

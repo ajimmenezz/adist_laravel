@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Logistic\Pickup;
 use App\Http\Controllers\Support\BranchInventory;
+use App\Http\Controllers\Warehouse\Distribution;
 use App\Http\Middleware\ValidateAdISTToken;
+use App\Http\Controllers\Logistic\Distribution as LogisticDistribution;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +23,16 @@ use App\Http\Middleware\ValidateAdISTToken;
 Route::middleware([ValidateAdISTToken::class])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
+    Route::prefix('Almacen')->group(function () {
+        Route::get('Distribucion', [Distribution::class, 'index'])->name('warehouse.distribution.index');
+        Route::get('Distribucion/{id}', [Distribution::class, 'one'])->name('warehouse.distribution.one');
+    });
+
     Route::prefix('Logistica')->group(function () {
         Route::get('Recoleccion', [Pickup::class, 'index'])->name('logistic.pickup.index');
         Route::get('Recoleccion/{id}', [Pickup::class, 'one'])->name('logistic.pickup.one');
+
+        Route::get('Distribucion', [LogisticDistribution::class, 'index'])->name('logistic.distribution.index');
     });
 
     Route::prefix('Soporte-en-sitio')->group(function () {
@@ -32,7 +41,6 @@ Route::middleware([ValidateAdISTToken::class])->group(function () {
         Route::get('Censos/sheetExport/{id}', [BranchInventory::class, 'xlsExport'])->name('support.branch_inventory.export');
 
         Route::get('Censos/{id}/{area}', [BranchInventory::class, 'area'])->name('support.branch_inventory.area');
-
     });
 });
 

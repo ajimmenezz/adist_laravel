@@ -4,6 +4,7 @@ import {
 import laravel from 'laravel-vite-plugin';
 import path from 'path';
 
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -14,10 +15,14 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/tapp.js',
                 'resources/js/modules/index.js',
-                
+
+                'resources/js/modules/warehouse/distribution/index.js',
+                'resources/js/modules/warehouse/distribution/one.js',
 
                 'resources/js/modules/logistic/pickups.js',
                 'resources/js/modules/logistic/pickup.js',
+                
+                'resources/js/modules/logistic/distribution/index.js',
 
                 'resources/js/modules/support/branch_inventories/index.js',
                 'resources/js/modules/support/branch_inventories/one.js',

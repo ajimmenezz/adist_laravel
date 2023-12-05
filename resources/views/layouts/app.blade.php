@@ -16,6 +16,8 @@
 
     @vite(['resources/css/app.css', 'resources/css/app_dark.css'])
 
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -26,7 +28,7 @@
             @include('sections.header')
             <div id="main-content">
                 <div class="page-heading">
-                    <x-generals.title title="{{ $title ?? '' }}" subtitle="{{ $subtitle ?? '' }}" :breadcrumb="$breadcrumb" />
+                    <x-generals.title :content="$title_content" />
                     <section class="section">
                         @yield('content')
                     </section>
