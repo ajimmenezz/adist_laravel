@@ -26,7 +26,7 @@
         @include('sections.sidebar')
         <div id="main" class='layout-navbar'>
             @include('sections.header')
-            <div id="main-content">
+            <div id="main-content" class="p-2 p-sm-4">
                 <div class="page-heading">
                     <x-generals.title :content="$title_content" />
                     <section class="section">

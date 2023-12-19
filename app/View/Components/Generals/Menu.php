@@ -25,6 +25,11 @@ class Menu extends Component
                         'label' => 'Distribución',
                         'url' => route('warehouse.distribution.index'),
                         'active' => (isset($path[2]) && $path[2] == 'Distribucion') ? true : false
+                    ],
+                    [
+                        'label' => 'Inventario 2023',
+                        'url' => route('warehouse.inventory2023.index'),
+                        'active' => (isset($path[2]) && $path[2] == 'Inventario-2023') ? true : false
                     ]
                 ]
             ],

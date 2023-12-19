@@ -19,6 +19,8 @@ export default defineConfig({
                 'resources/js/modules/warehouse/distribution/index.js',
                 'resources/js/modules/warehouse/distribution/one.js',
 
+                'resources/js/modules/warehouse/inventory2023/index.js',
+
                 'resources/js/modules/logistic/pickups.js',
                 'resources/js/modules/logistic/pickup.js',
                 

@@ -101,6 +101,21 @@ class Controller extends BaseController
                     ]
                 ];
                 break;
+            case 'warehouse.inventory2023.index':
+                return [
+                    'title' => 'Inventario 2023',
+                    'subtitle' => 'Corte de Inventario SAE',
+                    'breadcrumb' => [
+                        [
+                            'label' => 'Almacén',
+                        ],
+                        [
+                            'label' => 'Inventario 2023',
+                            'url' => route('warehouse.inventory2023.index')
+                        ]
+                    ]
+                ];
+                break;
             case 'logistic.pickup.one':
                 return [
                     'title' => $data['branch'],

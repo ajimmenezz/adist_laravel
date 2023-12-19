@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Logistic\Distribution\Destinations;
 use App\Http\Controllers\Api\Support\BranchInventory;
 use App\Http\Controllers\Api\Warehouse\Distribution;
 use App\Http\Controllers\Api\Warehouse\DistributionDevices;
+use App\Http\Controllers\Api\Warehouse\Inventory2023;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Outsourcing\Reports;
 
@@ -91,13 +92,17 @@ Route::prefix('v3')->group(function () {
         Route::delete('Destination/ToSupport/{id}', [DistributionDevices::class, 'cancelToSupport']);
 
         Route::post('Distribution/TransferCode', [DistributionDevices::class, 'transferCode']);
+
+        Route::get('Inventory2023/{id}', [Inventory2023::class, 'index']);
+        Route::post('Inventory2023/{id}', [Inventory2023::class, 'update']);
+        Route::get('Inventory2023/export/{id}', [Inventory2023::class, 'export']);
     });
 
-    Route::prefix('Logistic')->group(function(){
+    Route::prefix('Logistic')->group(function () {
         Route::get('/Destinations', [Destinations::class, 'index']);
 
         Route::get('/Distribution/Destination/Devices', [DistributionDevices::class, 'pendingTransferDevices']);
 
-        Route::post('/Distribution/Destination/AcceptDevices', [DistributionDevices::class, 'acceptDevices']);  
+        Route::post('/Distribution/Destination/AcceptDevices', [DistributionDevices::class, 'acceptDevices']);
     });
 });

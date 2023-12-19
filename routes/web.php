@@ -8,6 +8,7 @@ use App\Http\Controllers\Support\BranchInventory;
 use App\Http\Controllers\Warehouse\Distribution;
 use App\Http\Middleware\ValidateAdISTToken;
 use App\Http\Controllers\Logistic\Distribution as LogisticDistribution;
+use App\Http\Controllers\Warehouse\Inventory2023;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware([ValidateAdISTToken::class])->group(function () {
     Route::prefix('Almacen')->group(function () {
         Route::get('Distribucion', [Distribution::class, 'index'])->name('warehouse.distribution.index');
         Route::get('Distribucion/{id}', [Distribution::class, 'one'])->name('warehouse.distribution.one');
+        Route::get('Inventario-2023', [Inventory2023::class, 'index'])->name('warehouse.inventory2023.index');
     });
 
     Route::prefix('Logistica')->group(function () {
