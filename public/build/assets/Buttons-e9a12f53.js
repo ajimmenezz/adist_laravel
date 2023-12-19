@@ -1,0 +1,1 @@
+class s{initClic(n,o=t=>{}){$(n).off("click").on("click",function(){o($(this))})}initHover(n,o=i=>{},t=i=>{}){$(n).off("mouseenter").on("mouseenter",function(){o($(this))}),$(n).off("mouseleave").on("mouseleave",function(){t($(this))})}}export{s as B};
