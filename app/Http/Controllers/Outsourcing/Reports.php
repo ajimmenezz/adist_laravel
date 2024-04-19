@@ -26,11 +26,13 @@ class Reports extends Controller
         }
 
         $excel = $this->exportExcel($result, $dates);
-        return response()->json([
-            'message' => 'success',
-            // 'data' => $result,
-            'excel' => $excel
-        ]);
+        echo "<h2>Reporte generado exitosamente</h2><br><a href='$excel' target='_blank'>Descargar Reporte</a>";
+
+        // return response()->json([
+        //     'message' => 'success',
+        //     // 'data' => $result,
+        //     'excel' => $excel
+        // ]);
     }
 
     private function getDates($timestamp = null)
