@@ -16,6 +16,9 @@ class Reports extends Controller
         if ($request->has('f'))
             $dates = $this->getDates($request->f);
 
+        if ($request->has('begin') && $request->has('end'))
+            $dates = $this->getDatesBetween($request->begin, $request->end);
+
 
         $result = Outsourcing::getWeekPendingInvoices($dates);
 
@@ -33,6 +36,14 @@ class Reports extends Controller
         //     // 'data' => $result,
         //     'excel' => $excel
         // ]);
+    }
+
+    private function getDatesBetween($begin, $end)
+    {
+        return [
+            'begin' => $begin . " 00:00:00",
+            'end' => $end . " 23:59:59"
+        ];
     }
 
     private function getDates($timestamp = null)
