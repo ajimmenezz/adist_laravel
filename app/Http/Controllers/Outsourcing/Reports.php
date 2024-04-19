@@ -20,7 +20,7 @@ class Reports extends Controller
             $dates = $this->getDatesBetween($request->begin, $request->end);
 
 
-        $result = Outsourcing::getWeekPendingInvoices($dates);
+        $result = Outsourcing::getWeekPendingInvoices($dates, $request->has('all') ? true : false);
 
         foreach ($result as $key => $value) {
             $result[$key]->XMLData = $this->setXMLValues($value->XML);

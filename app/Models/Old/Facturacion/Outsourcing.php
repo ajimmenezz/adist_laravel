@@ -12,9 +12,9 @@ class Outsourcing extends Model
 
     protected $table = 't_facturacion_outsourcing_documentacion';
 
-    public static function getWeekPendingInvoices($dates)
+    public static function getWeekPendingInvoices($dates, $all = false)
     {
-        return DB::table('t_facturacion_outsourcing_documentacion as tfod')
+        $query = DB::table('t_facturacion_outsourcing_documentacion as tfod')
             ->join('t_facturacion_outsourcing as tfo', 'tfod.IdVuelta', '=', 'tfo.Id')
             ->join('t_servicios_ticket as tst', 'tfo.IdServicio', '=', 'tst.Id')
             ->select(
@@ -39,11 +39,15 @@ class Outsourcing extends Model
                 'tfod.PDF'
 
             )
-            ->where('tfo.IdEstatus', 14)
             ->where('tfod.Fecha', '>=', $dates['begin'])
             ->where('tfod.Fecha', '<=', $dates['end'])
             ->orderBy('tfo.Folio', 'asc')
-            ->orderBy('tfo.Vuelta', 'asc')
-            ->get();
+            ->orderBy('tfo.Vuelta', 'asc');
+
+        if (!$all) {
+            $query->where('tfo.IdEstatus', 14);
+        }
+
+        return $query->get();
     }
 }
