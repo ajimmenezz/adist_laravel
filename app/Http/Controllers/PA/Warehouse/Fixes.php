@@ -19,10 +19,6 @@ class Fixes extends Controller
 
             $inventory = DB::table('t_inventario as ti')
                 ->join('cat_v3_almacenes_virtuales as cav', 'ti.IdAlmacen', '=', 'cav.Id')
-                ->leftJoin('v_inventario_ultimo_movimiento_serie as tmi', function ($join) {
-                    $join->on('ti.IdProducto', '=', 'tmi.IdProducto')
-                        ->on('ti.Serie', '=', 'tmi.Serie');
-                })
                 ->where('ti.IdCliente', 1)
                 ->where('ti.IdTipoProducto', 1)
                 ->where('ti.Serie', '<>', 'ILEGIBLE')
@@ -36,62 +32,135 @@ class Fixes extends Controller
                     'ti.Serie',
                     'cav.Id as IdAlmacen',
                     'cav.IdTipoAlmacen',
-                    'cav.IdReferenciaAlmacen',
+                    'cav.IdReferenciaAlmacen'
+                )->get();
+
+            $lastMovements = DB::table('v_inventario_ultimo_movimiento_serie as tmi')
+                ->where('tmi.IdCliente', 1)
+                ->where('tmi.IdTipoProducto', 1)
+                ->select(
+                    'tmi.IdProducto',
+                    'tmi.Serie',
                     DB::raw('(select Nombre from cat_v3_tipos_movimiento_inventario where Id = tmi.IdTipoMovimiento) as TipoMovimiento'),
                     'tmi.IdAlmacen as IdAlmacenMovimiento',
                     'tmi.Fecha'
                 )->get();
+
+
+
+            $lastMovements = $lastMovements->keyBy(function ($item) {
+                if(is_numeric($item->Serie)){
+                    $item->Serie = ltrim($item->Serie, '0');
+                }
+                return $item->IdProducto . '-' . $item->Serie;
+            });
+
+            $inventory = $inventory->map(function ($item) use ($lastMovements) {
+                $key = $item->IdProducto . '-' . $item->Serie;
+                if (isset($lastMovements[$key])) {
+                    $item->TipoMovimiento = $lastMovements[$key]->TipoMovimiento;
+                    $item->IdAlmacenMovimiento = $lastMovements[$key]->IdAlmacenMovimiento;
+                    $item->Fecha = $lastMovements[$key]->Fecha;
+                } else {
+                    $item->TipoMovimiento = null;
+                    $item->IdAlmacenMovimiento = null;
+                    $item->Fecha = null;
+                }
+                return $item;
+            });
+
+            $censos = DB::table('t_censos as tc')
+                ->join('t_servicios_ticket as tst', 'tc.IdServicio', 'tst.Id')
+                ->where('tst.IdEstatus', 4)
+                ->where('tc.Serie', '<>', 'ILEGIBLE')
+                ->where('tc.Serie', '<>', '')
+                ->whereNotNull('tc.Serie')
+                ->where('tst.IdSucursal', '<>', 0)
+                ->where('tst.IdSucursal', '<>', null)
+                ->where('tst.IdSucursal', '<>', '')
+                ->select(
+                    DB::raw('MAX(tst.Id) as Id'),
+                    DB::raw('MAX(tst.FechaConclusion) as FechaConclusion'),
+                    'tst.IdSucursal',
+                    'tst.Atiende',
+                    'tc.IdModelo as IdProducto',
+                    'tc.Serie'
+                )->groupBy('tc.IdModelo', 'tc.Serie')
+                ->get();
+
+            $censos = $censos->keyBy(function ($item) {
+                return $item->IdProducto . '-' . $item->Serie;
+            });
+
+            $inventory = $inventory->map(function ($item) use ($censos) {
+                $key = $item->IdProducto . '-' . $item->Serie;
+                if (isset($censos[$key])) {
+                    $item->IdCenso = $censos[$key]->Id;
+                    $item->FechaCenso = $censos[$key]->FechaConclusion;
+                    $item->IdSucursal = $censos[$key]->IdSucursal;
+                    $item->Atiende = $censos[$key]->Atiende;
+                } else {
+                    $item->IdCenso = null;
+                    $item->FechaCenso = null;
+                    $item->IdSucursal = null;
+                    $item->Atiende = null;
+                }
+                return $item;
+            });
 
             $results = [];
             $erros = [];
 
             foreach ($inventory as $item) {
                 try {
-                    $censo = DB::table("t_censos as tc")
-                        ->join('t_servicios_ticket as tst', 'tc.IdServicio', 'tst.Id')
-                        ->where('tc.IdModelo', $item->IdProducto)
-                        ->where('tc.Serie', $item->Serie)
-                        ->where('tst.IdEstatus', 4)
-                        ->select(
-                            'tst.Id',
-                            'tst.FechaConclusion',
-                            'tst.IdSucursal',
-                            'tst.Atiende'
-                        )->orderBy('tst.FechaConclusion', 'desc')
-                        ->first();
+                    // $censo = DB::table("t_censos as tc")
+                    //     ->join('t_servicios_ticket as tst', 'tc.IdServicio', 'tst.Id')
+                    //     ->where('tc.IdModelo', $item->IdProducto)
+                    //     ->where('tc.Serie', $item->Serie)
+                    //     ->where('tst.IdEstatus', 4)
+                    //     ->select(
+                    //         'tst.Id',
+                    //         'tst.FechaConclusion',
+                    //         'tst.IdSucursal',
+                    //         'tst.Atiende'
+                    //     )->orderBy('tst.FechaConclusion', 'desc')
+                    //     ->first();
 
-                    if (!$censo) continue;
+                    // if (!$censo) continue;
 
-                    if ($item->Fecha < $censo->FechaConclusion) {
-                        $item->FechaCenso = $censo->FechaConclusion;
+                    if (!$item->IdCenso) {
+                        continue;
+                    }
+
+                    if ($item->Fecha < $item->FechaCenso) {
 
                         $branchWarehouse = DB::table('cat_v3_almacenes_virtuales as cav')
                             ->where('cav.IdTipoAlmacen', 2)
-                            ->where('cav.IdReferenciaAlmacen', $censo->IdSucursal)
+                            ->where('cav.IdReferenciaAlmacen', $item->IdSucursal)
                             ->select('cav.Id')
                             ->first();
 
                         if (!$branchWarehouse) {
-                            $branch = Branches::find($censo->IdSucursal);
+                            $branch = Branches::find($item->IdSucursal);
 
                             $branchWarehouse = CVirtualWarehouses::create([
                                 'IdTipoAlmacen' => 2,
-                                'IdReferenciaAlmacen' => $censo->IdSucursal,
+                                'IdReferenciaAlmacen' => $item->IdSucursal,
                                 'IdResponsable' => null,
                                 'Nombre' => "Inventario de {$branch->Nombre}",
                                 'Flag' => 1
                             ]);
                         }
 
-                        DB::transaction(function () use ($item, $censo, $branchWarehouse) {
+                        DB::transaction(function () use ($item, $branchWarehouse) {
                             $firstMovement = Movements::create([
                                 'IdTipoMovimiento' => 4,
-                                'IdServicio' => $censo->Id,
+                                'IdServicio' => $item->IdCenso,
                                 'IdAlmacen' => $item->IdAlmacenMovimiento ?? $item->IdAlmacen,
                                 'IdTipoProducto' => 1,
                                 'IdProducto' => $item->IdProducto,
                                 'IdEstatus' => $item->IdEstatus,
-                                'IdUsuario' => $censo->Atiende,
+                                'IdUsuario' => $item->Atiende,
                                 'Cantidad' => 1,
                                 'Serie' => $item->Serie,
                                 'Fecha' => $item->FechaCenso,
@@ -103,12 +172,12 @@ class Fixes extends Controller
                             Movements::create([
                                 'IdMovimientoEnlazado' => $firstMovement->Id,
                                 'IdTipoMovimiento' => 5,
-                                'IdServicio' => $censo->Id,
+                                'IdServicio' => $item->IdCenso,
                                 'IdAlmacen' => $branchWarehouse->Id,
                                 'IdTipoProducto' => 1,
                                 'IdProducto' => $item->IdProducto,
                                 'IdEstatus' => 17,
-                                'IdUsuario' => $censo->Atiende,
+                                'IdUsuario' => $item->Atiende,
                                 'Cantidad' => 1,
                                 'Serie' => $item->Serie,
                                 'Fecha' => $item->FechaCenso,
