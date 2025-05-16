@@ -105,47 +105,51 @@ class Fixes extends Controller
                         ]);
                     }
 
-                    DB::transaction(function () use ($item, $branchWarehouse, $censo, $ultimoMovimiento) {
-                        $firstMovement = Movements::create([
-                            'IdTipoMovimiento' => 4,
-                            'IdServicio' => $censo->Id,
-                            'IdAlmacen' => $ultimoMovimiento->IdAlmacenMovimiento ?? $item->IdAlmacen,
-                            'IdTipoProducto' => 1,
-                            'IdProducto' => $item->IdProducto,
-                            'IdEstatus' => $item->IdEstatus,
-                            'IdUsuario' => $censo->Atiende,
-                            'Cantidad' => 1,
-                            'Serie' => $item->Serie,
-                            'Fecha' => $censo->FechaConclusion,
-                            'NoTraspaso' => null,
-                            'IdCliente' => 1,
-                            'IdInventario' => $item->Id
-                        ]);
+                    try {
+                        DB::transaction(function () use ($item, $branchWarehouse, $censo, $ultimoMovimiento) {
+                            $firstMovement = Movements::create([
+                                'IdTipoMovimiento' => 4,
+                                'IdServicio' => $censo->Id,
+                                'IdAlmacen' => $ultimoMovimiento->IdAlmacenMovimiento ?? $item->IdAlmacen,
+                                'IdTipoProducto' => 1,
+                                'IdProducto' => $item->IdProducto,
+                                'IdEstatus' => $item->IdEstatus,
+                                'IdUsuario' => $censo->Atiende,
+                                'Cantidad' => 1,
+                                'Serie' => $item->Serie,
+                                'Fecha' => $censo->FechaConclusion,
+                                'NoTraspaso' => null,
+                                'IdCliente' => 1,
+                                'IdInventario' => $item->Id
+                            ]);
 
-                        Movements::create([
-                            'IdMovimientoEnlazado' => $firstMovement->Id,
-                            'IdTipoMovimiento' => 5,
-                            'IdServicio' => $censo->Id,
-                            'IdAlmacen' => $branchWarehouse->Id,
-                            'IdTipoProducto' => 1,
-                            'IdProducto' => $item->IdProducto,
-                            'IdEstatus' => 17,
-                            'IdUsuario' => $censo->Atiende,
-                            'Cantidad' => 1,
-                            'Serie' => $item->Serie,
-                            'Fecha' => $censo->FechaConclusion,
-                            'NoTraspaso' => null,
-                            'IdCliente' => 1,
-                            'IdInventario' => $item->Id
-                        ]);
+                            Movements::create([
+                                'IdMovimientoEnlazado' => $firstMovement->Id,
+                                'IdTipoMovimiento' => 5,
+                                'IdServicio' => $censo->Id,
+                                'IdAlmacen' => $branchWarehouse->Id,
+                                'IdTipoProducto' => 1,
+                                'IdProducto' => $item->IdProducto,
+                                'IdEstatus' => 17,
+                                'IdUsuario' => $censo->Atiende,
+                                'Cantidad' => 1,
+                                'Serie' => $item->Serie,
+                                'Fecha' => $censo->FechaConclusion,
+                                'NoTraspaso' => null,
+                                'IdCliente' => 1,
+                                'IdInventario' => $item->Id
+                            ]);
 
-                        Inventory::where('Id', $item->Id)->update([
-                            'IdEstatus' => 17,
-                            'IdEstatusAux' => null,
-                            'Bloqueado' => 0,
-                            'IdAlmacen' => $branchWarehouse->Id
-                        ]);
-                    });
+                            Inventory::where('Id', $item->Id)->update([
+                                'IdEstatus' => 17,
+                                'IdEstatusAux' => null,
+                                'Bloqueado' => 0,
+                                'IdAlmacen' => $branchWarehouse->Id
+                            ]);
+                        });
+                    } catch (\Exception $e) {
+                        continue; // Skip this item if transaction fails
+                    }
                 }
 
                 $results[] = [
